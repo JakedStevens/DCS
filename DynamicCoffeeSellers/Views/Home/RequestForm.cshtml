@@ -1,0 +1,88 @@
+﻿@{
+	ViewData["Title"] = "Request Info";
+	@model DynamicCoffeeSellers.ViewModels.RequestFormViewModel;
+}
+<div class="form-background">
+	<div class="req-form">
+		<h1>Request Information</h1>
+		<form method="POST" action="/Home/FormSubmitted">
+			<div class="mb-3">
+				<label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+				<input name="firstname" type="text" class="form-control" id="firstName" aria-describedby="firstName" required onchange="checkIndustryField()">
+
+			</div>
+			<div class="mb-3">
+				<label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+				<input name="lastname" type="text" class="form-control" id="lastName" aria-describedby="lastName" required onchange="checkIndustryField()">
+
+			</div>
+			<div class="mb-3">
+				<label for="company" class="form-label">Company <span class="text-danger">*</span></label>
+				<input name="companyname" type="text" class="form-control" id="company" aria-describedby="company" required onchange="checkIndustryField()">
+
+			</div>
+			<div class="mb-3">
+				<label for="industry" class="form-label">Industry <span class="text-danger">*</span></label>
+
+				<select name="industry" id="industry" class="form-control" onchange="checkIndustryField()">
+					<option value="" selected disabled>Select Your Industry</option>
+					@foreach (var industry in Model.AllIndustries)
+					{
+						<option value="/jej_industries(@industry.IndustryId)">@industry.Name</option>
+					}
+				</select>
+
+			</div>
+			<div class="mb-3">
+				<label for="comments" class="form-label">Comments</label>
+				<input name="subject" type="text" class="form-control" id="comments" aria-describedby="comments" required
+					   value="I would like to place an order for @(Model.SelectedProduct) coffee!">
+
+			</div>
+
+			<button type="submit" id="contact-btn" class="btn btn-success" disabled>Contact Us</button>
+		</form>
+	</div>
+</div>
+
+
+<script>
+	function checkIndustryField() {
+		var industryInput = document.getElementById('industry');
+		var firstNameInput = document.getElementById('firstName');
+		var lastNameInput = document.getElementById('lastName');
+		var companyInput = document.getElementById('company');
+		var contactBtn = document.getElementById('contact-btn');
+
+		if (industryInput.value == ""
+			|| firstNameInput.value == ""
+			|| lastNameInput.value == ""
+			|| companyInput.value == ""
+		) {
+			contactBtn.disabled = true;
+		}
+		else {
+			contactBtn.disabled = false;
+		}
+
+	}
+
+	function toggleIndustryInput() {
+		var industryInput = document.getElementById('industry');
+		var addIndustryInput = document.getElementById('add-industry-input');
+		var addIndustryBtn = document.getElementById('add-industry-btn');
+		var selectBtn = document.getElementById('select-btn');
+
+		if (addIndustryInput.classList.contains('d-none')) {
+			addIndustryInput.classList.remove('d-none');
+			industryInput.classList.add('d-none');
+			addIndustryBtn.classList.add('d-none');
+			selectBtn.classList.remove('d-none');
+		} else {
+			addIndustryInput.classList.add('d-none');
+			industryInput.classList.remove('d-none');
+			addIndustryBtn.classList.remove('d-none');
+			selectBtn.classList.add('d-none');
+		}
+	}
+</script>

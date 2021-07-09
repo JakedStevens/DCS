@@ -1,0 +1,17 @@
+﻿@model DynamicCoffeeSellers.Models.RequestForm
+
+<div class="receipt-background">
+	<div class="container form-receipt">
+		<h3 class="pacifico">Thank you @Model.firstname</h3>
+		<p class="ml-2">We'll get back to you right after we get a cup of coffee.</p>
+		<p class="ml-2">You will automatically be redirected to the home page shortly...</p>
+	</div>
+</div>
+
+
+
+<script>
+    setTimeout(() => {
+        window.location.pathname = ('/')
+    }, 7500);
+</script>
